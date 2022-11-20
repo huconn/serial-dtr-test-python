@@ -13,14 +13,15 @@ import inquirer # Import the inquirer library
 
 # list of serial ports and select the one you want to use
 ports = serial.tools.list_ports.comports()
+
+# making dictionary of ports
 port_list = []
-port_desc = []
+
 for port in ports:
-    port_list.append(port.device)
-    port_desc.append(port.description)
+    port_list.append((port.description, port.device))
 
 # select the serial port to use
-questions = [ inquirer.List('port', message="Select the serial port to use", choices=port_list), ]
+questions = [ inquirer.List('port', message="Select the serial port to use", choices=port_list, ), ]
 answers = inquirer.prompt(questions)
 port = answers['port']
 
